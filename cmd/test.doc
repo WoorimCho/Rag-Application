@@ -1,0 +1,5 @@
+I would like to use cURL to not only send data parameters in HTTP POST but to also upload files with specific form name. How should I go about doing that ?
+HTTP Post parameters:
+userid = 12345 filecomment = This is an image file
+HTTP File upload: File location = /home/user1/Desktop/test.jpg Form name for file = image (correspond to the $_FILES['image'] at the PHP side)
+I figured part of the cURL command as follows:

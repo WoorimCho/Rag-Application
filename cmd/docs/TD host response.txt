@@ -1,0 +1,172 @@
+From "TD BASE24 POS SPDH Message Specifications v3.36 - JAN-31-2023 - TRACK OF CHANGES ON.docx"
+
+Host response codes
+
+==== TD ====
+000	Approve - With Balances	“AUTH XXXXXX”	“AUT XXXXXX”
+001	Approve - Without Balances	“AUTH XXXXXX”	“AUT XXXXXX”
+002	Approve - Country Club	“AUTH XXXXXX”	“AUT XXXXXX”
+003	Approve - Maybe more ID	“AUTH XXXXXX”	“AUT XXXXXX”
+004	Approve - Pending ID	“AUTH XXXXXX”	“AUT XXXXXX”
+005	Approve – Blind	“AUTH XXXXXX”	“AUT XXXXXX”
+006	Approve – VIP	“AUTH XXXXXX”	“AUT XXXXXX”
+007	Approve - Admin Tran	“COMPLETED”	“COMPLETE”
+008	Approve - Against Nat’l NEG	“AUTH XXXXXX”	“AUT XXXXXX”
+009	Approve - Commercial	“AUTH XXXXXX”	“AUT XXXXXX”
+010	Approve – Partial Approval, Approve – U.S. Purchase with Cashback, Purchase Amount only approval	“AUTH XXXXXX”	“AUT XXXXXX”
+			
+050	Decline	“DECLINE”	“REFUSE”
+051	Decline - Expired Card	“EXPIRED CARD”	“CARTE EXPIREE”
+052	Decline - Exceeded PIN Tries	“CALL HELP DESK”	“APPEL SERV AIDE”
+053	Decline - No Sharing	“CALL HELP DESK”	“APPEL SERV AIDE”
+054	Decline - No ATALLA Box	“CALL HELP DESK”	“APPEL SERV AIDE”
+055	Decline - Invalid Tran	“PLEASE TRY AGAIN”	“RECOMMENCEZ SVP”
+056	Decline - No Support	“CALL HELP DESK”	“APPEL SERV AIDE”
+057	Decline - Lost or Stolen Card	“HOLD CARD CALL”	“RET CARTE APPEL”
+058	Decline - Invalid Status	“CALL HELP DESK”	“APPEL SERV AIDE”
+059	Decline - Restricted, For INTERAC Flash :Decline - Terminated in favour of Contact Interface	“DECLINE”	“REFUSE”
+060	Decline - NO Accounts	“CALL HELP DESK”	“APPEL SERV AIDE”
+061	Decline - No PBF	“CALL HELP DESK”	“APPEL SERV AIDE”
+062	Decline - PBF Update Error	“CALL HELP DESK”	“APPEL SERV AIDE”
+063	Decline - Invalid Auth Type	“CALL HELP DESK”	“APPEL SERV AIDE”
+064	Decline - Bad TRACK2	“PLEASE TRY AGAIN”	“RECOMMENCEZ SVP”
+065	Decline - ADJ not allowed	“CALL HELP DESK”	“APPEL SERV AIDE”
+066	Decline - Invalid Increment	“CALL HELP DESK”	“APPEL SERV AIDE”
+067	Decline - Invalid TRAN Date	“CALL HELP DESK”	“APPEL SERV AIDE”
+068	Decline - TLF Error	“CALL HELP DESK”	“APPEL SERV AIDE”
+069	Decline - MSG Edit Error	“PLEASE TRY AGAIN”	“RECOMMENCEZ SVP”
+070	Decline - No IDF Record	“CALL HELP DESK”	“APPEL SERV AIDE”
+071	Decline - Invalid Route Auth	“CALL HELP DESK”	“APPEL SERV AIDE”
+072	Decline - On Nat'l Neg	“CALL HELP DESK”	“APPEL SERV AIDE”
+073	Decline - Inv Route Service	“CALL HELP DESK”	“APPEL SERV AIDE”
+074	Decline - Unable To Authorize	“DECLINE”	“REFUSE”
+075	Decline - Invalid Pan Length	“DECLINE”	“REFUSE”
+076	Decline - Low Funds (Insufficient Funds)	“DECLINE”	“REFUSE”
+077	Decline - Pre Auth Full	“CALL HELP DESK”	“APPEL SERV AIDE”
+078	Decline - Duplicate Tran	“CALL HELP DESK”	“APPEL SERV AIDE”
+079	Decline - Max Refund Online	“CALL HELP DESK”	“APPEL SERV AIDE”
+080	Decline - Max Refund Offline	“CALL HELP DESK”	“APPEL SERV AIDE”
+081	Decline - Max Per Refund	“CALL HELP DESK”	“APPEL SERV AIDE”
+082	Decline - Num Times Used	“CALL HELP DESK”	“APPEL SERV AIDE”
+083	Decline   Max Refund Total	“CALL HELP DESK”	“APPEL SERV AIDE”
+084	Decline   Cust Neg Reason	“CALL HELP DESK”	“APPEL SERV AIDE”
+085	Decline   Inq Not Allowed	“CALL HELP DESK”	“APPEL SERV AIDE”
+086	Decline   Over Floor Limit	“DECLINE”	“REFUSE”
+087	Decline   Max Refund Number	“CALL HELP DESK”	“APPEL SERV AIDE”
+088	Decline   No Retry	“CALL FOR AUTH”	“APPEL PUR AUT”
+089	Decline   CAF Status 0 Or 9	“CALL HELP DESK”	“APPEL SERV AIDE”
+090	Decline   Referral File Full	“CALL HELP DESK”	“APPEL SERV AIDE”
+091	Decline   Neg File Problem	“CALL HELP DESK”	“APPEL SERV AIDE”
+092	Decline   Advance < Minimum	“CALL HELP DESK”	“APPEL SERV AIDE”
+093	Decline   Delinquent	“CALL HELP DESK”	“APPEL SERV AIDE”
+094	Decline   Over Limit Table	“CALL HELP DESK”	“APPEL SERV AIDE”
+095	Decline   Amount Over Max	“CALL HELP DESK”	“APPEL SERV AIDE”
+096	Decline   Pin Required	“CALL HELP DESK”	“APPEL SERV AIDE”
+097	Decline   Mod Ten Check	“CALL HELP DESK”	“APPEL SERV AIDE”
+098	Decline   Force Post	“DECLINE”	“REFUSE”
+099	Decline   Bad PBF	“DECLINE”	“REFUSE”
+			
+100	Refer – Unable To Process	“CALL FOR AUTH”	“APPEL PUR AUT”
+101	Refer – Issue Call	“CALL FOR AUTH”	“APPEL PUR AUT”
+102	Refer – Call	“CALL FOR AUTH”	“APPEL PUR AUT”
+103	Refer – Neg File Problem	“CALL HELP DESK”	“APPEL SERV AIDE”
+104	Refer – CAF File Problem	“CALL HELP DESK”	“APPEL SERV AIDE”
+105	Refer – Card Not Supported	“CALL HELP DESK”	“APPEL SERV AIDE”
+106	Refer – Amount Over Max	“CALL HELP DESK”	“APPEL SERV AIDE”
+107	Refer – Over Daily Limit	“CALL HELP DESK”	“APPEL SERV AIDE”
+108	Refer – CAF Not Found	“CALL HELP DESK”	“APPEL SERV AIDE”
+109	Refer – Advance < Minimum	“CALL HELP DESK”	“APPEL SERV AIDE”
+110	Refer – Num Times Used	“CALL HELP DESK”	“APPEL SERV AIDE”
+111	Refer – Delinquent	“CALL HELP DESK”	“APPEL SERV AIDE”
+112	Refer – Over Limit Table	“CALL HELP DESK”	“APPEL SERV AIDE”
+113	Refer – Timeout 	“CALL HELP DESK”	“APPEL SERV AIDE”
+115	Refer – PTLF Full	“CALL HELP DESK”	“APPEL SERV AIDE”
+121	Refer – Admin File Problem	“CALL HELP DESK”	“APPEL SERV AIDE”
+122	Refer – Unable To Validate Pin	“CALL HELP DESK”	“APPEL SERV AIDE”
+130	Refer – Authorization Request Cryptogram (ARQC) Referral	“CALL HELP DESK”	“APPEL SERV AIDE”
+131	Refer– Card Verification Results (CVR) Referral	“CALL HELP DESK”	“APPEL SERV AIDE”
+132	Refer– Terminal Verification Results (TVR) Referral	“CALL HELP DESK”	“APPEL SERV AIDE”
+133	Refer – Reason Online Code Referral	“CALL HELP DESK”	“APPEL SERV AIDE”
+134	Refer – Fallback Referral	“CALL HELP DESK”	“APPEL SERV AIDE”
+			
+150	Service   Merchant Not On File 	“CALL HELP DESK”	“APPEL SERV AIDE”
+			
+200	Error – Account	“CALL HELP DESK”	“APPEL SERV AIDE”
+201	Error – Incorrect Pin	“CALL HELP DESK”	“APPEL SERV AIDE”
+202	Error – Advance < Minimum	“CALL HELP DESK”	“APPEL SERV AIDE”
+203	Error – Admin Card Needed	“CALL HELP DESK”	“APPEL SERV AIDE”
+204	Error – Enter Lesser Amount	“CALL HELP DESK”	“APPEL SERV AIDE”
+205	Error – Invalid Advance Amount	“CALL HELP DESK”	“APPEL SERV AIDE”
+206	Error – CAF Not Found	“CALL HELP DESK”	“APPEL SERV AIDE”
+207	Error – Invalid Tran Date	“CALL HELP DESK”	“APPEL SERV AIDE”
+208	Error – Invalid Exp Date	“CALL HELP DESK”	“APPEL SERV AIDE”
+209	Error – Invalid Transaction code	“DECLINE”	“REFUSE”
+210	Error – Pin Key Sync Error	“DECLINE”	“REFUSE”
+212	Error – Destination Not Available	“DECLINE”	“REFUSE”
+251	Error – On Cash Amount	“DECLINE”	“REFUSE”
+252	Decline   Debit Not Supported	“DECLINE”	“REFUSE”
+400	Error– Authorization Request Cryptogram (ARQC) Failure	“DECLINE”	“REFUSE”
+401	Error – Hardware Security Module Parameter Error	“DECLINE”	“REFUSE”
+402	Error – Hardware Security Module Failure	“DECLINE”	“REFUSE”
+403	Error – Issuer EMV Security Record Not Found	“DECLINE”	“REFUSE”
+404	Error – Application Transaction Counter (ATC) Check Failure	“DECLINE”	“REFUSE”
+405	Error – Card Verification Results (CVR) Decline	“DECLINE”	“REFUSE”
+406	Error – Terminal Verification Results (TVR) Decline	“DECLINE”	“REFUSE”
+407	Error – Reason Online Code Failure	“DECLINE”	“REFUSE”
+408	Error – Fallback Decline	“DECLINE”	“REFUSE”
+700	Auth Cancelled – No Retry	"DECLINE"	"REFUSE"
+710	PT Token expired	"DECLINE"	"REFUSE"
+711	PT Token start date in the future, no active yet	"DECLINE"	"REFUSE"
+712	PT Token and PAN are present in the request message	"DECLINE"	"REFUSE"
+713	Invalid PT Token	"DECLINE"	"REFUSE"
+714	Merchant does not subscribe to Merchant OMNI Tokenization	"DECLINE"	"REFUSE"
+715	PT Token no present in request message	"DECLINE"	"REFUSE"
+716	PT Token is present, Expiry Date is not present	"DECLINE"	"REFUSE"
+717	OMNI Tokenization is disabled	"DECLINE"	"REFUSE"
+718	Invalid API version	"DECLINE"	"REFUSE"
+720	No surcharge applies	"NO SURCHARGE"	"AUCUN SUPPLÉMENT"
+721	Surcharge applies	"APPLY SURCHARGE"	"APPLIQUER SUPPL"
+722	Excessive surcharge, This response code is returned when:  Credit card types that credit surcharge is > 2.4%, Card Verify if the credit surcharge amount is not = $0	"EXCESS SURCHARGE"	"SUPPL EXCESS"
+723	Credit surcharge is not allowed	"NO SURCHARGE"	"AUCUN SUPPLÉMENT"
+800	Error – Bad Format	“CALL HELP DESK”	“APPEL SERV AIDE”
+801	Error – Bad Data	“CALL HELP DESK”	“APPEL SERV AIDE”
+802	Error – Bad Employee	“CALL HELP DESK”	“APPEL SERV AIDE”
+809	Error – Bad Close	“CALL HELP DESK”	“APPEL SERV AIDE”
+810	Error – Timeout	“PLEASE TRY AGAIN”	“RECOMMENCEZ SVP”
+811	Error – System Error	“CALL HELP DESK”	“APPEL SERV AIDE”
+820	Error – Terminal Deactivated	“CALL HELP DESK”	“APPEL SERV AIDE”
+821	Error – Bad Response Length	“CALL HELP DESK”	“APPEL SERV AIDE”
+			
+877	Decline   Invalid Pin Block	“DECLINE”	“REFUSE”
+878	Decline   Pin Length Error	“DECLINE”	“REFUSE”
+889	Decline – KMAC Sync Error	“DECLINE”	“REFUSE”
+898	Decline   Bad MAC	“DECLINE”	“APPEL SERV AIDE”
+899	Decline   Bad Sequence Number	“DECLINE”	“REFUSE”
+			
+900	Capture   Pin Tries Exceeded	“CALL HELP DESK”	“APPEL SERV AIDE”
+901	Capture   Expired Card	“CALL HELP DESK”	“APPEL SERV AIDE”
+902	Capture   Neg Capture	“CALL HELP DESK”	“APPEL SERV AIDE”
+903	Capture   CAF Status 3	“CALL HELP DESK”	“APPEL SERV AIDE”
+904	Capture – Advance < Minimum	“CALL HELP DESK”	“APPEL SERV AIDE”
+905	Capture   Num Times Used	“CALL HELP DESK”	“APPEL SERV AIDE”
+906	Capture   Delinquent	“CALL HELP DESK”	“APPEL SERV AIDE”
+907	Capture   Over Limit Table 	“CALL HELP DESK”	“APPEL SERV AIDE”
+908	Capture   Amt Over Maximum	“CALL HELP DESK”	“APPEL SERV AIDE”
+909	Capture – No Retry	“HOLD CARD CALL”	“RET CARTE APPEL”
+910	Capture – Authorization Request Cryptogram (ARQC)	“CALL HELP DESK”	“APPEL SERV AIDE”
+911	Capture – Card Verification Results (CVR)	“CALL HELP DESK”	“APPEL SERV AIDE”
+912	Capture - Terminal Verification Results (TVR)	“CALL HELP DESK”	“APPEL SERV AIDE”
+			
+950	Admin – Card Not Found	“CALL HELP DESK”	“APPEL SERV AIDE”
+951	Admin – Card Not Allowed	“CALL HELP DESK”	“APPEL SERV AIDE”
+952	Admin – Approved In Window	“CALL HELP DESK”	“APPEL SERV AIDE”
+953	Admin – Approved Out Of Window	“CALL HELP DESK”	“APPEL SERV AIDE”
+954	Admin – Approved Anytime	“CALL HELP DESK”	“APPEL SERV AIDE”
+955	Admin – Chargeback/Approved Update	“CALL HELP DESK”	“APPEL SERV AIDE”
+956	Admin – Chargeback/Approved Update	“CALL HELP DESK”	“APPEL SERV AIDE”
+957	Admin – Chargeback/Incorrect Prefix	“CALL HELP DESK”	“APPEL SERV AIDE”
+958	Admin – Chargeback/Incorrect Response code	“CALL HELP DESK”	“APPEL SERV AIDE”
+959	Admin – Admin Tran No Support	“CALL HELP DESK”	“APPEL SERV AIDE”
+960	Admin – Chargeback/Appd Not Update	“CALL HELP DESK”	“APPEL SERV AIDE”
+961	Admin – Chargeback/Appd Not Update	“CALL HELP DESK”	“APPEL SERV AIDE”
+962	Admin – Chargeback/Accepted	“CALL HELP DESK”	“APPEL SERV AIDE”

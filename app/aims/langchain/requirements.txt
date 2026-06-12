@@ -1,0 +1,28 @@
+python-dotenv
+python-docx
+Flask
+Werkzeug
+torch               # pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+torchvision
+huggingface_hub
+faiss-cpu           #faiss-gpu
+langchain
+langchain-chroma
+langchain-community
+langchain-core
+langchain-ollama
+langchain-text-splitters
+langchain_huggingface
+unstructured
+unstructured-client
+unstructured-inference
+unstructured_inference
+unstructured.pytesseract
+transformers
+sentence-transformers
+huggingface-hub[inference,cli]
+pdfminer.six
+pdf2image
+pdfplumber
+pi_heif
+pikepdf

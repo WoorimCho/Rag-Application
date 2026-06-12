@@ -1,0 +1,179 @@
+import os
+import shutil
+import glob
+from dotenv import load_dotenv
+
+# Chunking documents
+from langchain.document_loaders import DirectoryLoader, TextLoader
+from langchain.text_splitter import CharacterTextSplitter
+
+# Building vector db using FAISS
+from langchain.schema import Document
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from huggingface_hub import login
+from langchain_huggingface import HuggingFaceEmbeddings, ChatHuggingFace
+from langchain.vectorstores import FAISS
+
+import numpy as np
+import plotly.graph_objects as go
+from sklearn.manifold import TSNE
+
+ABSOLUTE_PATH = os.path.abspath(os.getcwd())
+KB_PATH = os.path.join(ABSOLUTE_PATH, "knowledge-base")
+DB_PATH = os.path.join(ABSOLUTE_PATH, "VectorDBs", "nexatech_faiss_vector_db")
+DB_HF_PATH = os.path.join(ABSOLUTE_PATH, "VectorDBs", "nexatech_faiss_vector_db_hf")
+
+all_folders = glob.glob(KB_PATH + "/*")
+
+loader_config = {"encoding": "utf-8"}
+all_documents = []
+for folder in all_folders:
+    category_name = os.path.basename(folder)
+
+    loader = DirectoryLoader(
+        path=folder,
+        glob="**/*.md",
+        loader_cls=TextLoader,
+        loader_kwargs=loader_config
+    )
+
+    documents = loader.load()
+    
+    for doc in documents:
+        doc.metadata["doc_type"] = category_name
+        all_documents.append(doc)
+
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+chunks = text_splitter.split_documents(all_documents)
+
+def get_relevant_context(query: str) -> str:
+    for chunk in chunks:
+        if query in chunk.page_content:
+            print(chunk)
+        else:
+            print("__________")
+
+get_relevant_context("Lancaster")
+
+##############################################################################################
+
+HF_TOKEN = os.getenv("HUGGINGFACE_TOKEN", "type-your-token-here")
+login(HF_TOKEN)
+
+db_name = DB_HF_PATH
+hf_embeddings = HuggingFaceEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2")
+
+if os.path.exists(DB_HF_PATH):
+    # print("FAISS vectorstore already exists. Load FAISS vectorstore.")
+    # hf_vectorstore = FAISS.load_local(DB_HF_PATH, embeddings=hf_embeddings, allow_dangerous_deserialization=True)
+    # total_vectors = hf_vectorstore.index.ntotal
+    # dimensions = hf_vectorstore.index.d
+    # print(f"There are {total_vectors} vectors with {dimensions:,} dimensions in this FAISS vector store")
+
+    # print("Delete collection from FAISS vectorstore")
+    # vectorstore.index.reset()
+    # vectorstore.docstore = {}
+    # vectorstore.index_to_docstore_id = {}
+
+    print("HF FAISS vectorstore already exists. Delete HF FAISS vectorstore.")
+    shutil.rmtree(DB_HF_PATH)
+
+hf_vectorstore = FAISS.from_documents(
+    documents=chunks,
+    embedding=hf_embeddings
+)
+
+# Save to local
+hf_vectorstore.save_local(DB_HF_PATH)
+
+total_vectors = hf_vectorstore.index.ntotal
+dimensions = hf_vectorstore.index.d
+print(f"There are {total_vectors} vectors with {dimensions:,} dimensions in this HF FAISS vector store")
+
+def sampling_vector(vectorstore: FAISS, vector_index: int) -> None:
+    doc_id = vectorstore.index_to_docstore_id[vector_index]
+    document = vectorstore.docstore.search(doc_id) # has page content and metadata
+    print(f"Vector: \n{document}\n\n")
+    
+    sample_vector = vectorstore.index.reconstruct(vector_index)
+    print(f"This vector has {len(sample_vector)} dimensions:\n{sample_vector[:25]}")
+
+sampling_vector(vectorstore=hf_vectorstore, vector_index=0)
+
+##################################################################################################
+
+# Prework
+vectors = []
+documents = []
+doc_types = []
+colors = []
+color_map = {'products':'blue', 'employees':'green', 'contracts':'red', 'company':'orange'}
+
+for i in range(total_vectors):
+    vectors.append(hf_vectorstore.index.reconstruct(i))
+    doc_id = hf_vectorstore.index_to_docstore_id[i]
+    document = hf_vectorstore.docstore.search(doc_id)
+    documents.append(document.page_content)
+    doc_type = document.metadata['doc_type']
+    doc_types.append(doc_type)
+    colors.append(color_map[doc_type])
+    
+vectors = np.array(vectors)
+
+try:
+    tsne = TSNE(n_components=2, random_state=42)
+    reduced_vectors = tsne.fit_transform(vectors)
+except:
+    # for small data documents
+    tsne = TSNE(n_components=2, random_state=42, perplexity=10)
+    reduced_vectors = tsne.fit_transform(vectors)
+
+# Create the 2D scatter plot
+fig = go.Figure(data=[go.Scatter(
+    x=reduced_vectors[:, 0],
+    y=reduced_vectors[:, 1],
+    mode='markers',
+    marker=dict(size=5, color=colors, opacity=0.8),
+    text=[f"Type: {t}<br>Text: {d[:100]}..." for t, d in zip(doc_types, documents)],
+    hoverinfo='text'
+)])
+
+fig.update_layout(
+    title='2D FAISS Vector Store Visualization',
+    scene=dict(xaxis_title='x',yaxis_title='y'),
+    width=800,
+    height=600,
+    margin=dict(r=20, b=10, l=10, t=40)
+)
+
+fig.show()
+
+# 3D Visualization
+
+try:
+    tsne = TSNE(n_components=3, random_state=42)
+    reduced_vectors = tsne.fit_transform(vectors)
+except:
+    tsne = TSNE(n_components=3, random_state=42, perplexity=10)
+    reduced_vectors = tsne.fit_transform(vectors)
+
+# Create the 3D scatter plot
+fig = go.Figure(data=[go.Scatter3d(
+    x=reduced_vectors[:, 0],
+    y=reduced_vectors[:, 1],
+    z=reduced_vectors[:, 2],
+    mode='markers',
+    marker=dict(size=5, color=colors, opacity=0.8),
+    text=[f"Type: {t}<br>Text: {d[:100]}..." for t, d in zip(doc_types, documents)],
+    hoverinfo='text'
+)])
+
+fig.update_layout(
+    title='3D FAISS Vector Store Visualization',
+    scene=dict(xaxis_title='x', yaxis_title='y', zaxis_title='z'),
+    width=900,
+    height=700,
+    margin=dict(r=20, b=10, l=10, t=40)
+)
+
+fig.show()

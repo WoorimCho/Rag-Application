@@ -1,0 +1,38 @@
+Project : AI management system
+
+app
+	- aims : web_api
+	- api
+----------------------------------------------
+
+Section_8
+
+Section_7_Load_Files_From_Folder
+	- load local file base on Directory
+	- use directory_loader.py
+
+Section_6_Load_Local_File
+	- load local file as PDF, DOCS & TXT
+	- use file_loader.py under data_load
+
+Section_5_Move_LLM_Builders
+	- Move building Ollama LLM to ollam_llm_builder.py under app.aims.langchain.llm
+	- Create building HuggingFace LLM in huggingface_llm_builder.py
+
+Section_4_1_Add_File_History
+	- Create a ChatHistory class on app.aims.web folder
+	- add add(user, message), getAll() & deleteFile() functions
+	- Link to route_query() on web_api.py
+
+Section_4_Add_HuggingFaceEmbedding
+	- Add HuggingFaceEmbedding
+	
+Section_3_Add_Huggingface_to_VdbAdapter	# Use VdbAdaper
+	- Add FAISS
+	
+Section_2_Add_FAISS						# Add FAISS vector db 
+	- create variable that select vector db
+
+Section_1_Change_to_OOP 				# update to OOP codes.
+	- web_api, 
+	- embedding_handler, qury_handler

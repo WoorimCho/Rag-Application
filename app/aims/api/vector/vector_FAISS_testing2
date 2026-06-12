@@ -1,0 +1,121 @@
+# https://python.langchain.com/docs/integrations/vectorstores/faiss/
+from langchain_ollama import OllamaEmbeddings
+import os
+import faiss
+from langchain_community.docstore.in_memory import InMemoryDocstore
+from langchain_community.vectorstores import FAISS
+
+from uuid import uuid4
+from langchain_core.documents import Document
+
+
+CHROMA_PATH = os.getenv('CHROMA_PATH', 'chroma')
+COLLECTION_NAME = os.getenv('COLLECTION_NAME', 'local-rag')
+TEXT_EMBEDDING_MODEL = os.getenv('TEXT_EMBEDDING_MODEL', 'nomic-embed-text')
+
+embeddings = OllamaEmbeddings(
+        model=TEXT_EMBEDDING_MODEL,
+        base_url=os.getenv('OLLAMA_API_URL', 'http://192.168.1.41:60001')
+        #api_key=os.getenv('OLLAMA_API_KEY', None)
+    )
+
+
+index = faiss.IndexFlatL2(len(embeddings.embed_query("hello world")))
+
+vector_store = FAISS(
+    embedding_function=embeddings,
+    index=index,
+    docstore=InMemoryDocstore(),
+    index_to_docstore_id={},
+)
+
+
+# Document format:
+    # document = Document(
+    #     page_content="I had chocolate chip pancakes and scrambled eggs for breakfast this morning.",
+    #     metadata={"source": "tweet"},
+    # )
+
+# Inputting the documents:
+    # documents = [
+    #    document_1,
+    #    document_2,
+    #    document_3,
+    #    document_4,
+    #    document_5,
+    #    document_6,
+    #    document_7,
+    #    document_8,
+    #    document_9,
+    #    document_10,
+    # ]
+    # uuids = [str(uuid4()) for _ in range(len(documents))]
+
+    # vector_store.add_documents(documents=documents, ids=uuids)
+
+
+# Deleting from vector_store:
+    # vector_store.delete(ids=[uuids[-1]])
+
+# Query vector_store
+    # results = vector_store.similarity_search(
+    #     "LangChain provides abstractions to make working with LLMs easy",
+    #     k=2,
+    #     filter={"source": "tweet"},
+    # )
+    # for res in results:
+    #     print(f"* {res.page_content} [{res.metadata}]")
+
+    # Advanced Meta data filtering options:
+        # $eq (equals)
+        # $neq (not equals)
+        # $gt (greater than)
+        # $lt (less than)
+        # $gte (greater than or equal)
+        # $lte (less than or equal)
+        # $in (membership in list)
+        # $nin (not in list)
+        # $and (all conditions must match)
+        # $or (any condition must match)
+        # $not (negation of condition)
+    
+    #Querying using the Advanced Meta data filtering:
+        # results = vector_store.similarity_search(
+        #     "LangChain provides abstractions to make working with LLMs easy",
+        #     k=2,
+        #     filter={"source": {"$eq": "tweet"}},
+        # )
+        # for res in results:
+        #     print(f"* {res.page_content} [{res.metadata}]")
+    
+    #Querying using score:
+        # results = vector_store.similarity_search_with_score(
+        #     "Will it be hot tomorrow?", k=1, filter={"source": "news"}
+        # )
+        # for res, score in results:
+        #     print(f"* [SIM={score:3f}] {res.page_content} [{res.metadata}]")
+
+# Turning vector_store into a retriever:
+    # retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 1})
+    # retriever.invoke("Stealing from the bank is a crime", filter={"source": "news"})
+
+# Saving and Loading Faiss index:
+    # Saving:
+        # vector_store.save_local("faiss_index")
+
+        # new_vector_store = FAISS.load_local(
+        #     "faiss_index", embeddings, allow_dangerous_deserialization=True
+        # )
+
+        # docs = new_vector_store.similarity_search("qux")
+    # Loading:
+        # docs[0]
+
+# Merging vectore_stores:
+    # db1 = FAISS.from_texts(["foo"], embeddings)
+    # db2 = FAISS.from_texts(["bar"], embeddings)
+
+    # db1.docstore._dict
+    # db2.docstore._dict
+    # db1.merge_from(db2)
+    # db1.docstore._dict
